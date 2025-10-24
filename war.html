@@ -1,0 +1,2260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Wars of History | jeffreysHistory</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a0000 0%, #330000 100%);
+            color: #e8e8e8;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            background: linear-gradient(to right, #ff4d4d, #cc0000);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 10px rgba(255, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #cc9999;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .quote {
+            max-width: 700px;
+            margin: 30px auto;
+            padding: 20px;
+            background: rgba(102, 0, 0, 0.3);
+            border-radius: 10px;
+            border-left: 5px solid #cc0000;
+            font-style: italic;
+            position: relative;
+        }
+
+        .quote::before {
+            content: """;
+            font-size: 4rem;
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            color: rgba(255, 77, 77, 0.3);
+        }
+
+        .quote-text {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #ffb3b3;
+        }
+
+        .quote-author {
+            text-align: right;
+            color: #cc9999;
+            font-size: 1rem;
+        }
+
+        .byline {
+            position: absolute;
+            right: 20px;
+            bottom: 10px;
+            font-size: 1rem;
+            color: #996666;
+            font-style: italic;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 50px auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: linear-gradient(to bottom, #8b0000, #330000);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: #8b0000;
+            border: 4px solid #ff4d4d;
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+        }
+
+        .timeline-item:nth-child(odd)::after {
+            right: -12px;
+        }
+
+        .timeline-item:nth-child(even)::after {
+            left: -12px;
+        }
+
+        .war-card {
+            padding: 20px;
+            background: linear-gradient(145deg, #330000, #1a0000);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            border-left: 5px solid #cc0000;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover .war-card {
+            box-shadow: 0 8px 25px rgba(204, 0, 0, 0.4);
+            border-left: 5px solid #ff4d4d;
+        }
+
+        .war-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            color: #ff6666;
+        }
+
+        .war-card .date {
+            color: #cc9999;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .war-card .description {
+            font-size: 0.95rem;
+            color: #e8e8e8;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: linear-gradient(145deg, #330000, #1a0000);
+            width: 90%;
+            max-width: 700px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            animation: slideUp 0.4s ease;
+            border: 1px solid #660000;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            background: linear-gradient(to right, #8b0000, #660000);
+            padding: 20px;
+            position: relative;
+        }
+
+        .modal-header h2 {
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .modal-date {
+            color: #ffb3b3;
+            font-size: 1.1rem;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            color: #fff;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: #ff4d4d;
+        }
+
+        .modal-body {
+            padding: 25px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .war-details p {
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+
+        .war-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat {
+            background: rgba(102, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ff4d4d;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #cc9999;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #996666;
+            font-size: 0.9rem;
+            border-top: 1px solid #330000;
+            margin-top: 40px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+
+            .timeline-item::after {
+                left: 19px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .byline {
+                position: static;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Wars of History</h1>
+            <div class="subtitle">A Chronicle of Global Conflict Through the Ages</div>
+            
+            <div class="quote">
+                <div class="quote-text">"Mars is the god of war, the relentless force that topples empires and forges new ones from the ashes of the old."</div>
+                <div class="quote-author">- Ancient Roman Proverb</div>
+            </div>
+            
+            <div class="byline">by jeffreysHistory</div>
+        </header>
+
+        <div class="timeline">
+            <!-- War items will be inserted here by JavaScript -->
+        </div>
+
+        <footer>
+            <p>Interactive Timeline of Global Conflicts | Created by jeffreysHistory</p>
+        </footer>
+    </div>
+
+    <!-- Modal for war details -->
+    <div class="modal" id="warModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">War Title</h2>
+                <div class="modal-date" id="modalDate">Date</div>
+                <span class="close-btn">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="war-details" id="warDetails">
+                    <!-- War details will be inserted here by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // War data - 75+ major wars from all continents throughout history
+        const wars = [
+            // Ancient Middle East & Egypt (1-5)
+            {
+                id: 1,
+                title: "Battle of Megiddo",
+                date: "c. 1457 BCE",
+                description: "First recorded battle between Egyptian forces and Canaanite coalition.",
+                details: `
+                    <p>The Battle of Megiddo is the first battle recorded in detail that has been verified by modern archaeology. It was fought between Egyptian forces under Pharaoh Thutmose III and a large Canaanite coalition led by the king of Kadesh.</p>
+                    <p>Thutmose III's victory at Megiddo allowed Egypt to extend its empire into the Levant and establish Egyptian dominance in the region for centuries. The battle is particularly notable for the detailed records left by Egyptian scribes.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">~10,000</div>
+                            <div class="stat-label">Egyptian Forces</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">~15,000</div>
+                            <div class="stat-label">Canaanite Forces</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">First</div>
+                            <div class="stat-label">Recorded Battle</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 2,
+                title: "Trojan War",
+                date: "c. 12th-13th Century BCE",
+                description: "Legendary conflict between Troy and Mycenaean Greece.",
+                details: `
+                    <p>The Trojan War was a legendary conflict in Greek mythology between the kingdoms of Troy and Mycenaean Greece. The war forms the backdrop for Homer's epic poems, the Iliad and the Odyssey.</p>
+                    <p>While the historicity of the Trojan War is debated, archaeological evidence suggests that a conflict or series of conflicts did occur at the site of Troy around this time period. The war has become one of the most famous events in Greek mythology.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">10 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Trojan Horse</div>
+                            <div class="stat-label">Famous Strategy</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Homer</div>
+                            <div class="stat-label">Primary Source</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 3,
+                title: "Assyrian Conquests",
+                date: "911-609 BCE",
+                description: "Series of campaigns establishing Neo-Assyrian Empire.",
+                details: `
+                    <p>The Assyrian Conquests were a series of military campaigns that established the Neo-Assyrian Empire as the dominant power in the ancient Near East. The Assyrians developed advanced siege warfare techniques and were known for their brutality.</p>
+                    <p>At its height, the Assyrian Empire stretched from the Persian Gulf to Egypt, incorporating diverse peoples and cultures through military force and administrative organization. Their military innovations influenced subsequent empires.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">300 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Siege Warfare</div>
+                            <div class="stat-label">Military Innovation</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Nineveh</div>
+                            <div class="stat-label">Capital</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 4,
+                title: "Greco-Persian Wars",
+                date: "499-449 BCE",
+                description: "Conflicts between Persian Empire and Greek city-states.",
+                details: `
+                    <p>The Greco-Persian Wars were a series of conflicts between the Achaemenid Empire of Persia and Greek city-states that started in 499 BCE and lasted until 449 BCE. The wars are famous for the Greek victories at Marathon, Thermopylae, and Salamis against overwhelming odds.</p>
+                    <p>These conflicts marked a pivotal moment in Western history, as the Greek victories ensured the continued independence of Greek culture, which would form the basis of Western civilization. The wars demonstrated the effectiveness of Greek hoplite warfare against Persian numbers.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">50 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">300</div>
+                            <div class="stat-label">Spartans at Thermopylae</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Herodotus</div>
+                            <div class="stat-label">Primary Historian</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 5,
+                title: "Peloponnesian War",
+                date: "431-404 BCE",
+                description: "War between Athens and Sparta for Greek dominance.",
+                details: `
+                    <p>The Peloponnesian War was an ancient Greek war fought by Athens and its empire against the Peloponnesian League led by Sparta. Historians have traditionally divided the war into three phases.</p>
+                    <p>The war marked the dramatic end of the Golden Age of Greece and reshaped the Greek world. Athens, which had been the strongest city-state in Greece prior to the war, was reduced to a state of near-complete subjection. The conflict weakened all Greek city-states, making them vulnerable to Macedonian conquest.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">27 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Sparta</div>
+                            <div class="stat-label">Victorious</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Thucydides</div>
+                            <div class="stat-label">Primary Historian</div>
+                        </div>
+                    </div>
+                `
+            },
+
+            // Ancient India (6-10)
+            {
+                id: 6,
+                title: "Kurukshetra War",
+                date: "c. 1000 BCE",
+                description: "Legendary conflict described in Mahabharata epic.",
+                details: `
+                    <p>The Kurukshetra War is a central event in the Indian epic Mahabharata, fought between two groups of cousins, the Pandavas and Kauravas, for the throne of Hastinapura.</p>
+                    <p>While its historicity is debated, the war represents a foundational moment in Indian culture and philosophy. The Bhagavad Gita, a sacred Hindu text, is set on the battlefield of Kurukshetra just before the war begins.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">18 days</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Mahabharata</div>
+                            <div class="stat-label">Epic Source</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Dharma Yuddha</div>
+                            <div class="stat-label">Righteous War</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 7,
+                title: "Magadha-Anga War",
+                date: "c. 600 BCE",
+                description: "Conflict establishing Magadha as dominant power in ancient India.",
+                details: `
+                    <p>The Magadha-Anga War marked the rise of the Magadha Empire under King Bimbisara, who conquered the neighboring kingdom of Anga.</p>
+                    <p>This victory established Magadha as the dominant power in eastern India and laid the foundation for what would become one of ancient India's greatest empires, controlling much of the Indian subcontinent.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">Bimbisara</div>
+                            <div class="stat-label">Magadhan Ruler</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Anga</div>
+                            <div class="stat-label">Conquered Kingdom</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Magadha Ascendancy</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 8,
+                title: "Conquests of Chandragupta Maurya",
+                date: "322-298 BCE",
+                description: "Wars establishing Maurya Empire across Indian subcontinent.",
+                details: `
+                    <p>Chandragupta Maurya, with the guidance of his advisor Chanakya, overthrew the Nanda Empire and established the Maurya Empire, one of the largest empires in ancient India.</p>
+                    <p>He later defeated Seleucus I Nicator, a general of Alexander the Great, gaining territory in modern-day Afghanistan and Pakistan. His empire stretched from Bengal to Persia.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">5M km²</div>
+                            <div class="stat-label">Empire Size</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Chanakya</div>
+                            <div class="stat-label">Chief Advisor</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Maurya Dynasty</div>
+                            <div class="stat-label">Founded</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 9,
+                title: "Kalinga War",
+                date: "262-261 BCE",
+                description: "Ashoka's conquest of Kalinga, turning point in Indian history.",
+                details: `
+                    <p>The Kalinga War was fought between the Maurya Empire under Ashoka and the state of Kalinga. The war resulted in a decisive Maurya victory but with massive casualties.</p>
+                    <p>The brutality of the war converted Ashoka to Buddhism and pacifism. He renounced further military conquest and became one of history's most famous proponents of non-violence and dharma.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">~100,000</div>
+                            <div class="stat-label">Kalinga Deaths</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">150,000</div>
+                            <div class="stat-label">Deported</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Buddhist Conversion</div>
+                            <div class="stat-label">Ashoka's Response</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 10,
+                title: "Gupta Conquests",
+                date: "320-550 CE",
+                description: "Wars establishing Gupta Empire, India's Golden Age.",
+                details: `
+                    <p>The Gupta Empire was established through military conquests by Chandragupta I, Samudragupta, and Chandragupta II, creating what is considered India's Golden Age.</p>
+                    <p>Under the Guptas, India experienced unprecedented progress in science, mathematics, astronomy, literature, and art. The empire's military successes allowed for this cultural flourishing.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">230 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Golden Age</div>
+                            <div class="stat-label">Cultural Period</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Samudragupta</div>
+                            <div class="stat-label">Greatest Conqueror</div>
+                        </div>
+                    </div>
+                `
+            },
+
+            // Ancient China (11-15)
+            {
+                id: 11,
+                title: "Battle of Muye",
+                date: "1046 BCE",
+                description: "Decisive battle establishing Zhou Dynasty.",
+                details: `
+                    <p>The Battle of Mye was the final battle of the Zhou conquest of the Shang Dynasty. King Wu of Zhou defeated the much larger army of King Zhou of Shang.</p>
+                    <p>The victory established the Zhou Dynasty and introduced the Mandate of Heaven concept, which would become central to Chinese political philosophy for millennia.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">50,000</div>
+                            <div class="stat-label">Zhou Forces</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">530,000</div>
+                            <div class="stat-label">Shang Forces</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Zhou Victory</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 12,
+                title: "Warring States Period",
+                date: "475-221 BCE",
+                description: "Centuries of conflict between Chinese states.",
+                details: `
+                    <p>The Warring States Period was an era of division in ancient China during which seven major states contended for supremacy and control of China.</p>
+                    <p>This period saw significant military innovations including crossbows, iron weapons, and cavalry. It ended with the Qin state unifying China under Qin Shi Huang, the First Emperor.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">254 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">7 States</div>
+                            <div class="stat-label">Major Combatants</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Qin Unification</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 13,
+                title: "Chu-Han Contention",
+                date: "206-202 BCE",
+                description: "Civil war following Qin Dynasty collapse.",
+                details: `
+                    <p>The Chu-Han Contention was a post-Qin Dynasty interregnum period when Liu Bang (King of Han) and Xiang Yu (Hegemon-King of Western Chu) struggled for supremacy.</p>
+                    <p>Liu Bang's eventual victory established the Han Dynasty, which would become one of China's greatest imperial dynasties and shape Chinese civilization for centuries.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">4 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Liu Bang</div>
+                            <div class="stat-label">Han Founder</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Han Dynasty</div>
+                            <div class="stat-label">Established</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 14,
+                title: "Three Kingdoms War",
+                date: "184-280 CE",
+                description: "Series of wars following Han Dynasty collapse.",
+                details: `
+                    <p>The Three Kingdoms period was one of the bloodiest in Chinese history, with the population declining from 56 million to about 16 million people.</p>
+                    <p>The wars between the states of Wei, Shu, and Wu have been romanticized in Chinese literature, most famously in Romance of the Three Kingdoms. The period ended with the reunification of China under the Jin Dynasty.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">96 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">~40M</div>
+                            <div class="stat-label">Population Decline</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Three Kingdoms</div>
+                            <div class="stat-label">Wei, Shu, Wu</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 15,
+                title: "An Lushan Rebellion",
+                date: "755-763 CE",
+                description: "Massive rebellion against Tang Dynasty China.",
+                details: `
+                    <p>The An Lushan Rebellion was a devastating rebellion against the Tang Dynasty led by General An Lushan. It is one of the deadliest conflicts in human history.</p>
+                    <p>The rebellion caused enormous population loss and permanently weakened the Tang Dynasty, marking the beginning of its decline. China's population dropped by about two-thirds during this period.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">8 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">13-36M</div>
+                            <div class="stat-label">Deaths</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Tang Weakened</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                    </div>
+                `
+            },
+
+            // Classical Mediterranean (16-20)
+            {
+                id: 16,
+                title: "Wars of Alexander the Great",
+                date: "336-323 BCE",
+                description: "Campaigns creating one of largest ancient empires.",
+                details: `
+                    <p>The Wars of Alexander the Great were a series of conflicts fought by King Alexander III of Macedon against the Persian Empire and various other kingdoms. His conquests stretched from Greece to northwestern India.</p>
+                    <p>Alexander's tactical genius and the effectiveness of his Macedonian phalanx allowed him to defeat much larger armies. His empire did not long survive his death, but his cultural legacy lasted for centuries through the Hellenistic period that spread Greek culture throughout the known world.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">13 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">~5.2M km²</div>
+                            <div class="stat-label">Empire Size</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Undefeated</div>
+                            <div class="stat-label">Military Record</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 17,
+                title: "Punic Wars",
+                date: "264-146 BCE",
+                description: "Three wars between Rome and Carthage.",
+                details: `
+                    <p>The Punic Wars were a series of three wars fought between Rome and Carthage from 264 BC to 146 BC. The main cause of the Punic Wars was the conflict of interests between the expanding Roman Republic and the already established Carthaginian Empire.</p>
+                    <p>The wars included Hannibal's famous crossing of the Alps with war elephants and ended with the complete destruction of Carthage, establishing Rome as the dominant power in the Mediterranean. The conflict demonstrated Rome's determination and ability to overcome seemingly impossible odds.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">118 years</div>
+                            <div class="stat-label">Total Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Hannibal</div>
+                            <div class="stat-label">Famous General</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Carthage Destroyed</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 18,
+                title: "Gallic Wars",
+                date: "58-50 BCE",
+                description: "Julius Caesar's conquest of Gaul.",
+                details: `
+                    <p>The Gallic Wars were waged between 58 and 50 BC by the Roman proconsul Julius Caesar against several Gallic tribes. The wars paved the way for Caesar to become the sole ruler of the Roman Republic.</p>
+                    <p>Caesar's firsthand account, Commentarii de Bello Gallico, is a classic of Latin literature and a primary source of information about the Celtic tribes of Gaul and the early military history of Rome. The conquest of Gaul marked a significant expansion of Roman territory and influence.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">8 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">~1,000,000</div>
+                            <div class="stat-label">Gauls Killed/Enslaved</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Julius Caesar</div>
+                            <div class="stat-label">Roman Commander</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 19,
+                title: "Roman Civil Wars",
+                date: "49-31 BCE",
+                description: "Series of conflicts ending Roman Republic.",
+                details: `
+                    <p>The Roman Civil Wars were a series of conflicts that ended the Roman Republic and led to the establishment of the Roman Empire under Augustus.</p>
+                    <p>Key conflicts included Caesar's Civil War against Pompey, the Liberators' Civil War following Caesar's assassination, and the Final War of the Roman Republic between Octavian and Mark Antony.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">18 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Republic Ended</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Augustus</div>
+                            <div class="stat-label">First Emperor</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 20,
+                title: "Jewish-Roman Wars",
+                date: "66-136 CE",
+                description: "Major rebellions in Roman Judea.",
+                details: `
+                    <p>The Jewish-Roman Wars were a series of large-scale revolts by the Jews of the Eastern Mediterranean against the Roman Empire.</p>
+                    <p>The conflicts included the First Jewish-Roman War (66-73 CE) which resulted in the destruction of the Second Temple, and the Bar Kokhba revolt (132-136 CE) which led to the complete destruction of Jerusalem and the expulsion of Jews from the region.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">70 years</div>
+                            <div class="stat-label">Total Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Temple Destroyed</div>
+                            <div class="stat-label">Major Event</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Jewish Diaspora</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                    </div>
+                `
+            },
+
+            // Medieval Europe (21-25)
+            {
+                id: 21,
+                title: "Muslim Conquests",
+                date: "622-750 CE",
+                description: "Rapid expansion of Islamic rule.",
+                details: `
+                    <p>The Muslim Conquests, also known as the Islamic Conquests or Arab Conquests, began following the death of the Islamic prophet Muhammad. They led to the creation of the caliphates and Islamic rule over vast territories.</p>
+                    <p>Within roughly a century, Muslim armies had conquered territory from the Iberian Peninsula in the west to the Indus River in the east, establishing one of the largest empires in history up to that point. The speed and extent of these conquests dramatically changed the cultural and political landscape of three continents.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">128 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">11M km²</div>
+                            <div class="stat-label">Territory Conquered</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Caliphates</div>
+                            <div class="stat-label">Rashidun, Umayyad</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 22,
+                title: "Viking Invasions",
+                date: "793-1066 CE",
+                description: "Scandinavian raids and settlements across Europe.",
+                details: `
+                    <p>The Viking Age was a period of Scandinavian expansion through raids, colonization, and conquest throughout Europe. Vikings originated from what is now Denmark, Norway, and Sweden.</p>
+                    <p>Viking activities ranged from trading and settlement to brutal raids on monasteries and towns. Their advanced shipbuilding and navigational skills allowed them to travel as far as North America, the Middle East, and Central Asia.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">273 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Longships</div>
+                            <div class="stat-label">Naval Technology</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Normandy, Rus'</div>
+                            <div class="stat-label">Established States</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 23,
+                title: "Norman Conquest",
+                date: "1066 CE",
+                description: "William the Conqueror's invasion of England.",
+                details: `
+                    <p>The Norman Conquest of England was the 11th-century invasion and occupation of England by an army of Norman, Breton, Flemish, and French soldiers led by Duke William II of Normandy.</p>
+                    <p>The conquest linked England more closely with Continental Europe and created one of the most powerful monarchies in Europe. The Bayeux Tapestry commemorates the events leading up to the conquest.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">1 year</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Hastings</div>
+                            <div class="stat-label">Decisive Battle</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">William I</div>
+                            <div class="stat-label">Conqueror</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 24,
+                title: "Crusades",
+                date: "1095-1291 CE",
+                description: "Religious wars for control of Holy Land.",
+                details: `
+                    <p>The Crusades were a series of religious wars initiated, supported, and sometimes directed by the Latin Church in the medieval period. The best known of these Crusades are the campaigns in the Eastern Mediterranean aimed at recovering the Holy Land from Muslim rule.</p>
+                    <p>The Crusades had profound impacts on both European and Middle Eastern history, including the strengthening of papal authority, increased trade between East and West, and the worsening of relations between Christianity and Islam. The cultural exchange during this period significantly influenced European civilization.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">196 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">9 Major</div>
+                            <div class="stat-label">Crusades</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Holy Land</div>
+                            <div class="stat-label">Primary Objective</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 25,
+                title: "Hundred Years' War",
+                date: "1337-1453",
+                description: "Conflict between England and France.",
+                details: `
+                    <p>The Hundred Years' War was a series of armed conflicts between the kingdoms of England and France during the Late Middle Ages. It originated from disputed claims to the French throne between the English House of Plantagenet and the French House of Valois.</p>
+                    <p>The war is notable for the introduction of new weapons and tactics, which eroded the older system of feudal armies dominated by heavy cavalry. The French victory marked the decline of England's continental possessions and the rise of national consciousness in both countries.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">116 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Joan of Arc</div>
+                            <div class="stat-label">French Heroine</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">France</div>
+                            <div class="stat-label">Victorious</div>
+                        </div>
+                    </div>
+                `
+            },
+
+            // Medieval Asia (26-30)
+            {
+                id: 26,
+                title: "Mongol Invasions",
+                date: "1206-1368 CE",
+                description: "Campaigns creating largest contiguous empire.",
+                details: `
+                    <p>The Mongol Invasions and conquests, which began under Genghis Khan in 1206, resulted in the vast Mongol Empire, which by 1300 covered much of Asia and Eastern Europe. Historians regard the Mongol devastation as one of the deadliest episodes in history.</p>
+                    <p>The Mongols were notable for their horsemanship, archery skills, and military tactics. They established the largest contiguous land empire in history, connecting East and West through the Pax Mongolica which facilitated trade and cultural exchange across Eurasia.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">162 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">24M km²</div>
+                            <div class="stat-label">Empire Size</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">~40M</div>
+                            <div class="stat-label">Estimated Deaths</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 27,
+                title: "Mongol invasions of Japan",
+                date: "1274-1281 CE",
+                description: "Failed attempts to conquer Japan.",
+                details: `
+                    <p>The Mongol invasions of Japan were major military efforts by Kublai Khan to conquer the Japanese archipelago. Two separate invasion fleets were largely destroyed by typhoons, which the Japanese called 'kamikaze' or 'divine winds'.</p>
+                    <p>The failed invasions strengthened the position of the samurai class and reinforced Japanese beliefs in their divine protection. The events had a lasting impact on Japanese culture and military development.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">7 years</div>
+                            <div class="stat-label">Between Invasions</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Kamikaze</div>
+                            <div class="stat-label">Divine Winds</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Japanese Victory</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 28,
+                title: "Ming–Mong War",
+                date: "1368-1644 CE",
+                description: "Centuries of conflict between Ming China and Mongols.",
+                details: `
+                    <p>The Ming-Mongol conflicts were a series of military engagements between the Ming Dynasty and various Mongol groups that lasted throughout the Ming period.</p>
+                    <p>These conflicts led to the construction and reinforcement of the Great Wall of China as a defensive measure. Despite occasional Ming victories, the northern frontier remained a persistent security concern.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">276 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Great Wall</div>
+                            <div class="stat-label">Defensive Measure</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Northern Frontier</div>
+                            <div class="stat-label">Conflict Zone</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 29,
+                title: "Mughal-Rajput Wars",
+                date: "1526-1779",
+                description: "Series of conflicts between Mughal Empire and Rajput kingdoms.",
+                details: `
+                    <p>The Mughal-Rajput Wars were a series of conflicts between the expanding Mughal Empire and the various Rajput kingdoms of northwestern India.</p>
+                    <p>While some Rajput rulers submitted to Mughal authority, others resisted fiercely. The conflicts shaped the cultural and political landscape of North India and influenced Mughal administrative practices.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">253 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Rajput Valor</div>
+                            <div class="stat-label">Military Tradition</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Cultural Synthesis</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 30,
+                title: "Mughal–Maratha Wars",
+                date: "1680-1707",
+                description: "Conflicts between Mughal Empire and Maratha Confederacy.",
+                details: `
+                    <p>The Mughal-Maratha Wars were a series of conflicts between the Mughal Empire and the rising Maratha Empire in western India.</p>
+                    <p>Led initially by Shivaji and later by his successors, the Marathas successfully challenged Mughal authority in the Deccan, marking the beginning of Mughal decline and Maratha ascendancy in India.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">27 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Shivaji</div>
+                            <div class="stat-label">Maratha Leader</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Mughal Decline</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                    </div>
+                `
+            },
+
+            // Early Modern Europe (31-35)
+            {
+                id: 31,
+                title: "Thirty Years' War",
+                date: "1618-1648",
+                description: "Devastating European religious conflict.",
+                details: `
+                    <p>The Thirty Years' War was one of the longest and most destructive conflicts in European history, occurring between 1618 and 1648. Fought primarily in Central Europe, an estimated 4.5 to 8 million soldiers and civilians died as a result of battle, famine, and disease.</p>
+                    <p>The war began as a religious conflict between Protestants and Catholics in the Holy Roman Empire and gradually developed into a general political war involving most of the great powers of Europe. The Peace of Westphalia that ended the war established the principle of state sovereignty.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">30 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">8M</div>
+                            <div class="stat-label">Casualties</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Peace of Westphalia</div>
+                            <div class="stat-label">Treaty</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 32,
+                title: "English Civil War",
+                date: "1642-1651",
+                description: "Conflict between Parliamentarians and Royalists.",
+                details: `
+                    <p>The English Civil War was a series of civil wars and political machinations between Parliamentarians and Royalists principally over the manner of England's governance. The war ended with the Parliamentarian victory at the Battle of Worcester.</p>
+                    <p>The outcome was threefold: the trial and execution of Charles I; the exile of his son, Charles II; and the replacement of English monarchy with the Commonwealth of England and later the Protectorate under Oliver Cromwell's personal rule.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">9 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Oliver Cromwell</div>
+                            <div class="stat-label">Parliamentary Leader</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Charles I Executed</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 33,
+                title: "Great Northern War",
+                date: "1700-1721",
+                description: "Conflict establishing Russian dominance in Baltic.",
+                details: `
+                    <p>The Great Northern War was a conflict in which a coalition led by the Tsardom of Russia successfully contested the supremacy of the Swedish Empire in Northern, Central, and Eastern Europe.</p>
+                    <p>The war ended with Sweden's defeat, leaving Russia as the new dominant power in the Baltic region and a major force in European politics. The war marked the rise of Russia as a great European power.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">21 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Peter the Great</div>
+                            <div class="stat-label">Russian Tsar</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Russian Ascendancy</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 34,
+                title: "War of Austrian Succession",
+                date: "1740-1748",
+                description: "European conflict over Habsburg inheritance.",
+                details: `
+                    <p>The War of the Austrian Succession involved most of the powers of Europe over the question of Maria Theresa's succession to the Habsburg monarchy. The war included King George's War in North America, the War of Jenkins' Ear, and the First and Second Carnatic Wars in India.</p>
+                    <p>The war ended with the Treaty of Aix-la-Chapelle in 1748, by which Maria Theresa was confirmed as Archduchess of Austria and Queen of Hungary, though Prussia retained Silesia.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">8 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Maria Theresa</div>
+                            <div class="stat-label">Austrian Ruler</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Global Conflict</div>
+                            <div class="stat-value">Multiple Theaters</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 35,
+                title: "Seven Years' War",
+                date: "1756-1763",
+                description: "First truly global war.",
+                details: `
+                    <p>The Seven Years' War was a global conflict fought between 1756 and 1763. It involved every European great power of the time and spanned five continents, affecting Europe, the Americas, West Africa, India, and the Philippines.</p>
+                    <p>Winston Churchill called it "the first world war". The conflict split Europe into two coalitions, led by Great Britain and France, respectively. The war established British naval supremacy and set the stage for both the American Revolution and French Revolution.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">7 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Global Scale</div>
+                            <div class="stat-label">Five Continents</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">British Ascendancy</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                    </div>
+                `
+            },
+
+            // Colonial Wars - Americas (36-40)
+            {
+                id: 36,
+                title: "Spanish Conquest of Aztec Empire",
+                date: "1519-1521",
+                description: "Hernán Cortés' conquest of Mexico.",
+                details: `
+                    <p>The Spanish conquest of the Aztec Empire was one of the most significant events in the Spanish colonization of the Americas. Following the arrival of Hernán Cortés, the Spanish, with indigenous allies, overthrew the Aztec Empire.</p>
+                    <p>The conquest was enabled by factors including Spanish technological superiority, diseases that devastated native populations, and political divisions within the Aztec Empire. The fall of Tenochtitlan marked the end of the Aztec Empire.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">2 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Hernán Cortés</div>
+                            <div class="stat-label">Spanish Leader</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Smallpox</div>
+                            <div class="stat-label">Decisive Factor</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 37,
+                title: "Spanish Conquest of Inca Empire",
+                date: "1532-1572",
+                description: "Francisco Pizarro's conquest of Peru.",
+                details: `
+                    <p>The Spanish conquest of the Inca Empire was another major campaign in the Spanish colonization of the Americas, led by Francisco Pizarro and his brothers.</p>
+                    <p>Similar to the Aztec conquest, the Spanish exploited internal divisions within the Inca Empire and benefited from European diseases. The capture and execution of Atahualpa marked a turning point in the conquest.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">40 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Francisco Pizarro</div>
+                            <div class="stat-label">Spanish Leader</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Atahualpa</div>
+                            <div class="stat-label">Inca Emperor</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 38,
+                title: "King Philip's War",
+                date: "1675-1678",
+                description: "Conflict between New England colonists and Native Americans.",
+                details: `
+                    <p>King Philip's War was an armed conflict between Native American inhabitants of New England and New England colonists and their Native American allies.</p>
+                    <p>The war is named after Metacom, the Wampanoag chief who adopted the name Philip. It was one of the deadliest wars in American history relative to population size and had a devastating impact on Native American tribes in New England.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">3 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Metacom</div>
+                            <div class="stat-label">Native Leader</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Colonial Victory</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 39,
+                title: "American Revolutionary War",
+                date: "1775-1783",
+                description: "War for American independence from Britain.",
+                details: `
+                    <p>The American Revolutionary War was an ideological and political revolution that occurred in British America between 1765 and 1791. The Americans in the Thirteen Colonies formed independent states that defeated the British in the American Revolutionary War, gaining independence from the British Crown and establishing the United States of America.</p>
+                    <p>The war was the result of the political American Revolution, which galvanized around the dispute between the Parliament of Great Britain and colonists opposed to the Stamp Act of 1765. The conflict inspired similar movements worldwide and established the first modern republic.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">8 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">George Washington</div>
+                            <div class="stat-label">American Commander</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">US Independence</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 40,
+                title: "Haitian Revolution",
+                date: "1791-1804",
+                description: "Slave rebellion establishing first black republic.",
+                details: `
+                    <p>The Haitian Revolution was a successful insurrection by self-liberated slaves against French colonial rule in Saint-Domingue, now the sovereign state of Haiti.</p>
+                    <p>Led by Toussaint Louverture and later Jean-Jacques Dessalines, the revolution resulted in the establishment of the first black republic and the first independent Caribbean state. It was the only slave uprising that led to the founding of a state.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">13 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Toussaint Louverture</div>
+                            <div class="stat-label">Revolutionary Leader</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">First Black Republic</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                    </div>
+                `
+            },
+
+            // India - Colonial Period (41-45)
+            {
+                id: 41,
+                title: "Carnatic Wars",
+                date: "1746-1763",
+                description: "Conflicts between European powers in South India.",
+                details: `
+                    <p>The Carnatic Wars were a series of military conflicts in the middle of the 18th century in India's coastal Carnatic region, a dependency of Hyderabad State.</p>
+                    <p>The conflicts involved numerous nominally independent rulers and their vassals, struggles for succession, and included a diplomatic and military struggle between the French East India Company and the British East India Company.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">17 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">British Victory</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">European Rivalry</div>
+                            <div class="stat-label">France vs Britain</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 42,
+                title: "Anglo-Mysore Wars",
+                date: "1767-1799",
+                description: "Series of wars between British East India Company and Kingdom of Mysore.",
+                details: `
+                    <p>The Anglo-Mysore Wars were a series of four wars fought in South India between the British East India Company and the Kingdom of Mysore.</p>
+                    <p>The wars featured the leadership of Hyder Ali and his son Tipu Sultan, who fiercely resisted British expansion. The final war ended with the death of Tipu Sultan and British victory at the Siege of Seringapatam.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">32 years</div>
+                            <div class="stat-label">Total Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Tipu Sultan</div>
+                            <div class="stat-label">Mysore Ruler</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">British Victory</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 43,
+                title: "Anglo-Maratha Wars",
+                date: "1775-1818",
+                description: "Conflicts between British East India Company and Maratha Empire.",
+                details: `
+                    <p>The Anglo-Maratha Wars were three wars fought in India between the British East India Company and the Maratha Empire.</p>
+                    <p>The wars resulted in the loss of Maratha independence and the establishment of Company rule over much of the Indian subcontinent. The Maratha defeat marked the end of significant resistance to British expansion in India.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">43 years</div>
+                            <div class="stat-label">Total Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Maratha Defeat</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">British Dominance</div>
+                            <div class="stat-label">Established</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 44,
+                title: "Anglo-Sikh Wars",
+                date: "1845-1849",
+                description: "Conflicts between British East India Company and Sikh Empire.",
+                details: `
+                    <p>The Anglo-Sikh Wars were two campaigns fought between the Sikh Empire and the British East India Company.</p>
+                    <p>The wars resulted in the subjugation of the Sikh Empire and the annexation of the Punjab region by the British. The Sikh soldiers, known for their bravery and military skill, were later incorporated into the British Indian Army.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">4 years</div>
+                            <div class="stat-label">Total Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Punjab Annexed</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Sikh Valor</div>
+                            <div class="stat-label">Military Reputation</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 45,
+                title: "Indian Rebellion of 1857",
+                date: "1857-1858",
+                description: "Major uprising against British rule in India.",
+                details: `
+                    <p>The Indian Rebellion of 1857 was a major, but ultimately unsuccessful, uprising in India against the rule of the British East India Company.</p>
+                    <p>The rebellion began as a mutiny of sepoys of the Company's army but quickly escalated into other mutinies and civilian rebellions. It led to the dissolution of the East India Company and the establishment of direct British rule over India.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">1 year</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">British Raj</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Sepoy Mutiny</div>
+                            <div class="stat-label">Alternative Name</div>
+                        </div>
+                    </div>
+                `
+            },
+
+            // China - Imperial Period (46-50)
+            {
+                id: 46,
+                title: "Opium Wars",
+                date: "1839-1860",
+                description: "Conflicts between China and Western powers.",
+                details: `
+                    <p>The Opium Wars were two wars in the mid-19th century involving Anglo-Chinese disputes over British trade in China and China's sovereignty. The disputes included the First Opium War and the Second Opium War.</p>
+                    <p>The wars and the subsequent treaties weakened the Qing dynasty and forced China to open trade with the West, beginning what is known in China as the 'Century of Humiliation'. The conflicts demonstrated the technological superiority of Western military forces.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">21 years</div>
+                            <div class="stat-label">Total Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Unequal Treaties</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Trade Concessions</div>
+                            <div class="stat-label">Western Demands</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 47,
+                title: "Taiping Rebellion",
+                date: "1850-1864",
+                description: "Massive civil war in southern China.",
+                details: `
+                    <p>The Taiping Rebellion was a massive rebellion or civil war in China that lasted from 1850 to 1864, fought between the established Manchu-led Qing dynasty and the millenarian movement of the Heavenly Kingdom of Peace.</p>
+                    <p>With death toll estimates ranging between 20-30 million, it was one of the deadliest conflicts in human history. The rebellion severely weakened the Qing dynasty and contributed to its eventual collapse.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">14 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">20-30M</div>
+                            <div class="stat-label">Deaths</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Qing Victory</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 48,
+                title: "First Sino-Japanese War",
+                date: "1894-1895",
+                description: "Conflict over influence in Korea.",
+                details: `
+                    <p>The First Sino-Japanese War was a conflict between the Qing dynasty of China and the Empire of Japan primarily over influence in Korea.</p>
+                    <p>Japan's victory surprised international observers and signaled the emergence of Japan as a major world power and the decline of Chinese influence in East Asia. The war demonstrated the success of Japan's modernization efforts.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">1 year</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Japanese Victory</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Taiwan Ceded</div>
+                            <div class="stat-label">Territorial Changes</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 49,
+                title: "Boxer Rebellion",
+                date: "1899-1901",
+                description: "Anti-foreign, anti-colonial uprising in China.",
+                details: `
+                    <p>The Boxer Rebellion was an anti-foreign, anti-colonial, and anti-Christian uprising in China between 1899 and 1901, towards the end of the Qing dynasty.</p>
+                    <p>The uprising was initiated by the Militia United in Righteousness, known in English as the Boxers, and was motivated by proto-nationalist sentiments and opposition to foreign imperialism and Christianity.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">2 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Eight-Nation Alliance</div>
+                            <div class="stat-label">Opposing Force</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Foreign Victory</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 50,
+                title: "Warlord Era",
+                date: "1916-1928",
+                description: "Period of regional military rule in China.",
+                details: `
+                    <p>The Warlord Era was a period in the history of the Republic of China when control of the country was divided among former military cliques of the Beiyang Army and other regional factions.</p>
+                    <p>The era was characterized by constant civil war between competing factions and the decentralization of political authority. It ended with the Northern Expedition that nominally unified China under Kuomintang control.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">12 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Regional Fragmentation</div>
+                            <div class="stat-label">Characteristic</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Nationalist Unification</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                    </div>
+                `
+            },
+
+            // 19th Century Europe (51-55)
+            {
+                id: 51,
+                title: "Napoleonic Wars",
+                date: "1803-1815",
+                description: "Series of conflicts involving Napoleon's France.",
+                details: `
+                    <p>The Napoleonic Wars were a series of major conflicts pitting the French Empire and its allies, led by Napoleon I, against a fluctuating array of European powers formed into various coalitions. They produced a period of French domination over most of continental Europe.</p>
+                    <p>The wars had profound consequences on global history, including the spread of nationalism and liberalism, the rise of Britain as the world's foremost naval and economic power, and the independence movements in Latin America. The Congress of Vienna that followed reshaped European borders.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">12 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">~3.5-6M</div>
+                            <div class="stat-label">Military Deaths</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Waterloo</div>
+                            <div class="stat-label">Final Battle</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 52,
+                title: "Crimean War",
+                date: "1853-1856",
+                description: "Conflict between Russia and Ottoman-led coalition.",
+                details: `
+                    <p>The Crimean War was a military conflict fought from October 1853 to February 1856 in which the Russian Empire lost to an alliance of the Ottoman Empire, France, Britain and Sardinia.</p>
+                    <p>The war was one of the first to be documented extensively in written reports and photographs. It is famous for the Charge of the Light Brigade and the work of Florence Nightingale, who pioneered modern nursing.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">2.5 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Allied Victory</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Modern Nursing</div>
+                            <div class="stat-label">Florence Nightingale</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 53,
+                title: "Franco-Prussian War",
+                date: "1870-1871",
+                description: "Conflict leading to German unification.",
+                details: `
+                    <p>The Franco-Prussian War was a conflict between the Second French Empire and the North German Confederation led by the Kingdom of Prussia.</p>
+                    <p>Prussian victory resulted in the unification of Germany and the creation of the German Empire, while the French defeat led to the fall of Napoleon III and the establishment of the Third French Republic.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">1 year</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">German Unification</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">German Empire</div>
+                            <div class="stat-label">Established</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 54,
+                title: "Russo-Turkish War",
+                date: "1877-1878",
+                description: "Conflict between Russian and Ottoman Empires.",
+                details: `
+                    <p>The Russo-Turkish War of 1877–1878 was a conflict between the Ottoman Empire and the Eastern Orthodox coalition led by the Russian Empire and composed of Bulgaria, Romania, Serbia, and Montenegro.</p>
+                    <p>The war resulted in Russian victory and the liberation of Bulgaria, Romania, Serbia, and Montenegro from Ottoman rule. The Treaty of Berlin redrew the map of the Balkan region.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">1 year</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Russian Victory</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Balkan Independence</div>
+                            <div class="stat-label">Liberated States</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 55,
+                title: "Balkan Wars",
+                date: "1912-1913",
+                description: "Conflicts in Balkans preceding WWI.",
+                details: `
+                    <p>The Balkan Wars consisted of two conflicts that took place in the Balkan Peninsula in 1912 and 1913. Four Balkan states defeated the Ottoman Empire in the first war.</p>
+                    <p>The second war erupted when Bulgaria fought against its former allies. The wars ended Ottoman rule in the Balkans and created tensions that contributed to the outbreak of World War I.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">2 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Ottoman Defeat</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">WWI Precursor</div>
+                            <div class="stat-label">Historical Significance</div>
+                        </div>
+                    </div>
+                `
+            },
+
+            // Americas - 19th Century (56-60)
+            {
+                id: 56,
+                title: "War of 1812",
+                date: "1812-1815",
+                description: "Conflict between United States and Britain.",
+                details: `
+                    <p>The War of 1812 was fought between the United States and the United Kingdom, with their respective allies, from June 1812 to February 1815.</p>
+                    <p>The war ended in a stalemate but confirmed US independence and inspired the writing of "The Star-Spangled Banner." It also ended the prospect of an independent Indian confederacy in the Midwest.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">2.5 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Stalemate</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">National Anthem</div>
+                            <div class="stat-label">Cultural Impact</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 57,
+                title: "Mexican-American War",
+                date: "1846-1848",
+                description: "Conflict over Texas and western territories.",
+                details: `
+                    <p>The Mexican-American War was an armed conflict between the United States and Mexico from 1846 to 1848. It followed the 1845 American annexation of Texas, which Mexico considered its territory.</p>
+                    <p>The US victory resulted in Mexico ceding nearly all of what is today the American Southwest and California. The war was highly controversial in the United States, particularly among anti-slavery advocates.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">2 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">US Victory</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Mexican Cession</div>
+                            <div class="stat-label">Territorial Changes</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 58,
+                title: "American Civil War",
+                date: "1861-1865",
+                description: "War between Union and Confederacy.",
+                details: `
+                    <p>The American Civil War was a civil war in the United States fought between the Union (states that remained loyal to the federal union) and the Confederacy (states that voted to secede). The central cause of the war was the status of slavery.</p>
+                    <p>The war remains the deadliest military conflict in American history, with an estimated 620,000 to 750,000 soldier deaths, and an undetermined number of civilian casualties. The Union victory led to the abolition of slavery in the United States and strengthened the federal government's power.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">4 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">~620,000</div>
+                            <div class="stat-label">Soldier Deaths</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Union Victory</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 59,
+                title: "War of the Pacific",
+                date: "1879-1884",
+                description: "Conflict between Chile and Bolivia-Peru alliance.",
+                details: `
+                    <p>The War of the Pacific was a conflict between Chile and a Bolivian-Peruvian alliance. Chile's victory resulted in its acquisition of significant territory from both countries.</p>
+                    <p>The war was fought over control of nitrate-rich territories in the Atacama Desert. Bolivia lost its coastal territory, becoming a landlocked country, while Peru lost its southern provinces.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">5 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Chilean Victory</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Bolivia Landlocked</div>
+                            <div class="stat-label">Major Consequence</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 60,
+                title: "Spanish-American War",
+                date: "1898",
+                description: "Conflict between United States and Spain.",
+                details: `
+                    <p>The Spanish-American War was a conflict between the United States and Spain that ended Spanish colonial rule in the Americas and resulted in U.S. acquisition of territories in the western Pacific and Latin America.</p>
+                    <p>The war began after the USS Maine mysteriously exploded in Havana Harbor. The U.S. victory marked the emergence of the United States as a world power and the end of the Spanish Empire in the Americas.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">1 year</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">US Victory</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">US Imperial Power</div>
+                            <div class="stat-label">Emergence</div>
+                        </div>
+                    </div>
+                `
+            },
+
+            // Africa - Colonial Period (61-65)
+            {
+                id: 61,
+                title: "Anglo-Zulu War",
+                date: "1879",
+                description: "Conflict between British Empire and Zulu Kingdom.",
+                details: `
+                    <p>The Anglo-Zulu War was fought in 1879 between the British Empire and the Zulu Kingdom. Following the British defeat at the Battle of Isandlwana, the British eventually prevailed.</p>
+                    <p>The war is famous for the Battles of Isandlwana and Rorke's Drift. Despite initial Zulu successes using traditional tactics against modern firearms, the British technological advantage ultimately proved decisive.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">1 year</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">British Victory</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Isandlwana</div>
+                            <div class="stat-label">Famous Battle</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 62,
+                title: "Mahdist War",
+                date: "1881-1899",
+                description: "British-Egyptian campaign against Mahdist Sudan.",
+                details: `
+                    <p>The Mahdist War was a war between the Mahdist Sudanese of the religious leader Muhammad Ahmad and the Khedivate of Egypt, later joined by the United Kingdom.</p>
+                    <p>The war included the death of General Gordon at Khartoum and ended with British victory at the Battle of Omdurman. The conflict resulted in the establishment of the Anglo-Egyptian Sudan.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">18 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">British Victory</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">General Gordon</div>
+                            <div class="stat-label">British Commander</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 63,
+                title: "First Boer War",
+                date: "1880-1881",
+                description: "Conflict between British and Boer settlers.",
+                details: `
+                    <p>The First Boer War was fought from 16 December 1880 until 23 March 1881 between the United Kingdom and Boers of the Transvaal.</p>
+                    <p>The war resulted in Boer victory and the independence of the South African Republic. The British recognized the Transvaal's independence under British suzerainty.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">3 months</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Boer Victory</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Transvaal Independence</div>
+                            <div class="stat-label">Outcome</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 64,
+                title: "Second Boer War",
+                date: "1899-1902",
+                description: "Conflict between British Empire and Boer republics.",
+                details: `
+                    <p>The Second Boer War was fought from 11 October 1899 until 31 May 1902 between the British Empire and two Boer states, the South African Republic and the Orange Free State.</p>
+                    <p>The war ended with British victory and the annexation of both republics. The British employed controversial tactics including concentration camps where thousands of Boer civilians died.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">2.5 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">British Victory</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Concentration Camps</div>
+                            <div class="stat-label">Controversial Tactics</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 65,
+                title: "Italo-Ethiopian War",
+                date: "1895-1896",
+                description: "Conflict between Italy and Ethiopia.",
+                details: `
+                    <p>The First Italo-Ethiopian War was fought between Italy and Ethiopia from 1895 to 1896. It originated from the disputed Treaty of Wuchale.</p>
+                    <p>Ethiopia's victory at the Battle of Adwa ensured its continued independence, making it the only African country to successfully resist European colonialism during the Scramble for Africa.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">1 year</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Ethiopian Victory</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Adwa</div>
+                            <div class="stat-label">Decisive Battle</div>
+                        </div>
+                    </div>
+                `
+            },
+
+            // Early 20th Century (66-70)
+            {
+                id: 66,
+                title: "Russo-Japanese War",
+                date: "1904-1905",
+                description: "Conflict over influence in Manchuria and Korea.",
+                details: `
+                    <p>The Russo-Japanese War was fought between the Russian Empire and the Empire of Japan over rival imperial ambitions in Manchuria and Korea.</p>
+                    <p>Japan's victory surprised international observers and established Japan as a major world power. It was the first major military victory in the modern era of an Asian power over a European one.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">1.5 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Japanese Victory</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Asian Power</div>
+                            <div class="stat-label">Japan Emerges</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 67,
+                title: "World War I",
+                date: "1914-1918",
+                description: "Global war originating in Europe.",
+                details: `
+                    <p>World War I, also known as the Great War, was a global war originating in Europe that lasted from 28 July 1914 to 11 November 1918. Contemporaneously described as 'the war to end all wars', it led to the mobilization of more than 70 million military personnel.</p>
+                    <p>The war drew in all the world's economic great powers, assembled in two opposing alliances: the Allies and the Central Powers. The unprecedented carnage and destruction resulted from new technologies of war and the failure of military leadership to adjust their tactics to the increasingly mechanized nature of warfare.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">4 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">~20M</div>
+                            <div class="stat-label">Deaths</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Allied Victory</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 68,
+                title: "Russian Civil War",
+                date: "1917-1922",
+                description: "Conflict following Russian Revolution.",
+                details: `
+                    <p>The Russian Civil War was a multi-party civil war in the former Russian Empire immediately after the Russian Revolutions of 1917, as many factions vied to determine Russia's political future.</p>
+                    <p>The two largest combatant groups were the Red Army, fighting for the Bolshevik form of socialism, and the loosely allied forces known as the White Army, which included diverse interests favoring monarchism, capitalism, and alternative forms of socialism.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">5 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Bolshevik Victory</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Soviet Union</div>
+                            <div class="stat-label">Established</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 69,
+                title: "Chinese Civil War",
+                date: "1927-1949",
+                description: "Conflict between Nationalists and Communists.",
+                details: `
+                    <p>The Chinese Civil War was fought between forces loyal to the Kuomintang-led government of the Republic of China and forces loyal to the Communist Party of China.</p>
+                    <p>The war can generally be divided into two stages, interrupted by the Second Sino-Japanese War. It resulted in Communist victory and the establishment of the People's Republic of China, while the Republic of China retreated to Taiwan.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">22 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Communist Victory</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">PRC Established</div>
+                            <div class="stat-label">People's Republic</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 70,
+                title: "Second Sino-Japanese War",
+                date: "1937-1945",
+                description: "Conflict between China and Japan.",
+                details: `
+                    <p>The Second Sino-Japanese War was a military conflict fought primarily between the Republic of China and the Empire of Japan from July 7, 1937, to September 2, 1945.</p>
+                    <p>The war merged with World War II and was the largest Asian war in the 20th century. It accounted for the majority of civilian and military casualties in the Pacific War, with over 20 million Chinese deaths.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">8 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">~20M</div>
+                            <div class="stat-label">Chinese Deaths</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Chinese Victory</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                    </div>
+                `
+            },
+
+            // World War II and Aftermath (71-75)
+            {
+                id: 71,
+                title: "World War II",
+                date: "1939-1945",
+                description: "Global war, deadliest conflict in history.",
+                details: `
+                    <p>World War II was the deadliest global war in history, involving more than 30 countries and resulting in 70 to 85 million fatalities. The vast majority of the world's countries, including all the great powers, fought as part of two opposing military alliances: the Allies and the Axis.</p>
+                    <p>World War II was by far the deadliest conflict in human history; it resulted in 70 to 85 million fatalities, a majority being civilians. Tens of millions of people died due to genocides, premeditated death from starvation, massacres, and disease. The war ended with the dropping of atomic bombs on Hiroshima and Nagasaki.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">6 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">70-85M</div>
+                            <div class="stat-label">Total Deaths</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Allied Victory</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 72,
+                title: "Korean War",
+                date: "1950-1953",
+                description: "Conflict between North and South Korea.",
+                details: `
+                    <p>The Korean War was a war between North Korea and South Korea. The war began on 25 June 1950 when North Korea invaded South Korea following clashes along the border and insurrections in the south.</p>
+                    <p>The war ended in an armistice that created the Korean Demilitarized Zone to separate North and South Korea, and allowed the return of prisoners. However, no peace treaty was ever signed, and the two Koreas are technically still at war.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">3 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">~2.5M</div>
+                            <div class="stat-label">Civilian Deaths</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Stalemate</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 73,
+                title: "Vietnam War",
+                date: "1955-1975",
+                description: "Cold War conflict in Southeast Asia.",
+                details: `
+                    <p>The Vietnam War was a conflict in Vietnam, Laos, and Cambodia from 1 November 1955 to the fall of Saigon on 30 April 1975. It was the second of the Indochina Wars and was officially fought between North Vietnam and South Vietnam.</p>
+                    <p>The war is considered a Cold War-era proxy war by some US perspectives. It lasted almost 20 years, with direct U.S. involvement ending in 1973. The conflict also spilled over into neighboring countries, exacerbating the Laotian Civil War and the Cambodian Civil War. The war was highly controversial and led to significant anti-war movements worldwide.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">19 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">~3.8M</div>
+                            <div class="stat-label">Total Deaths</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">North Vietnamese Victory</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 74,
+                title: "Soviet-Afghan War",
+                date: "1979-1989",
+                description: "Conflict between Soviet Union and Afghan mujahideen.",
+                details: `
+                    <p>The Soviet-Afghan War was a protracted armed conflict fought in the Soviet-controlled Democratic Republic of Afghanistan from 1979 to 1989. The war saw extensive fighting between the Soviet Army and the Afghan mujahideen, alongside smaller Maoist groups.</p>
+                    <p>The conflict is considered part of the Cold War, as the Soviet Union invaded to support the local pro-Soviet government that had been installed years before. The war caused millions of Afghans to flee their country, mostly to Pakistan and Iran, and contributed to the eventual collapse of the Soviet Union.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">9 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">~2M</div>
+                            <div class="stat-label">Afghan Deaths</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Mujahideen Victory</div>
+                            <div class="stat-label">Result</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 75,
+                title: "Iraq War",
+                date: "2003-2011",
+                description: "Invasion and subsequent conflict in Iraq.",
+                details: `
+                    <p>The Iraq War was a protracted armed conflict in Iraq from 2003 to 2011 that began with the invasion of Iraq by a United States-led coalition that overthrew the government of Saddam Hussein. The conflict continued for much of the next decade as an insurgency emerged to oppose the coalition forces and the post-invasion Iraqi government.</p>
+                    <p>The primary rationalization for the invasion was the assertion that Iraq possessed weapons of mass destruction (WMD) and that the Iraqi government posed a threat to the United States and its allies. No substantial evidence of WMD was found. The war resulted in the removal of Saddam Hussein's government and the execution of Saddam Hussein, but also triggered a sectarian civil war and the rise of ISIS.</p>
+                    <div class="war-stats">
+                        <div class="stat">
+                            <div class="stat-value">8 years</div>
+                            <div class="stat-label">Duration</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">~500,000</div>
+                            <div class="stat-label">Total Deaths</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">$2.4T</div>
+                            <div class="stat-label">US Spending</div>
+                        </div>
+                    </div>
+                `
+            }
+        ];
+
+        // DOM elements
+        const timeline = document.querySelector('.timeline');
+        const modal = document.getElementById('warModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDate = document.getElementById('modalDate');
+        const warDetails = document.getElementById('warDetails');
+        const closeBtn = document.querySelector('.close-btn');
+
+        // Initialize the timeline with war items
+        function initTimeline() {
+            wars.forEach(war => {
+                const warItem = document.createElement('div');
+                warItem.className = 'timeline-item';
+                warItem.innerHTML = `
+                    <div class="war-card" data-id="${war.id}">
+                        <h3>${war.title}</h3>
+                        <div class="date">${war.date}</div>
+                        <div class="description">${war.description}</div>
+                    </div>
+                `;
+                timeline.appendChild(warItem);
+            });
+
+            // Add event listeners to war cards
+            document.querySelectorAll('.war-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const warId = parseInt(card.getAttribute('data-id'));
+                    openModal(warId);
+                });
+            });
+        }
+
+        // Open modal with war details
+        function openModal(warId) {
+            const war = wars.find(w => w.id === warId);
+            if (war) {
+                modalTitle.textContent = war.title;
+                modalDate.textContent = war.date;
+                warDetails.innerHTML = war.details;
+                modal.style.display = 'flex';
+            }
+        }
+
+        // Close modal
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+
+        // Event listeners
+        closeBtn.addEventListener('click', closeModal);
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Initialize the timeline when page loads
+        document.addEventListener('DOMContentLoaded', initTimeline);
+    </script>
+</body>
+</html>
